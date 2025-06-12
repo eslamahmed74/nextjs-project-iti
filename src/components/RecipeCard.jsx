@@ -1,0 +1,104 @@
+import React, { useState } from "react";
+import {
+  FaClock,
+  FaUtensils,
+  FaFire,
+  FaStar,
+  FaHeart,
+  FaRegHeart,
+} from "react-icons/fa";
+
+export default function RecipeCard({ recipe }) {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  if (!recipe) return null;
+
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
+
+  return (
+    <div className="rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-xl transition-all duration-300 border border-gray-100">
+      {/* Recipe Image with Favorite Heart */}
+      <div className="relative h-48 overflow-hidden group">
+        <img
+          src={recipe.image}
+          alt={recipe.name}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <button
+          onClick={toggleFavorite}
+          className="absolute cursor-pointer top-3 right-3 p-2 bg-white/80 rounded-full backdrop-blur-sm hover:bg-white transition-colors duration-200"
+          aria-label={
+            isFavorite ? "Remove from favorites" : "Add to favorites"
+          }>
+          {isFavorite ? (
+            <FaHeart className="text-red-500 text-lg" />
+          ) : (
+            <FaRegHeart className="text-gray-600 text-lg hover:text-red-500" />
+          )}
+        </button>
+      </div>
+
+      {/* Recipe Content */}
+      <div className="p-5">
+        {/* Title and Rating */}
+        <div className="flex justify-between items-center mb-3">
+          <h3 className="text-xl font-bold text-gray-800 line-clamp-1">
+            {recipe.name}
+          </h3>
+          <div className="flex items-center text-amber-500">
+            <FaStar className="mr-1" />
+            <span className="font-medium">{recipe.rating?.toFixed(1)}</span>
+          </div>
+        </div>
+
+        {/* Meta Info */}
+        <div className="flex flex-wrap gap-3 mb-4 text-sm text-gray-600">
+          <span className="flex items-center">
+            <FaClock className="mr-1.5 text-gray-400" />
+            {recipe.prepTimeMinutes + recipe.cookTimeMinutes} mins
+          </span>
+          <span className="flex items-center">
+            <FaUtensils className="mr-1.5 text-gray-400" />
+            {recipe.servings} servings
+          </span>
+          <span className="flex items-center">
+            <FaFire className="mr-1.5 text-gray-400" />
+            {recipe.caloriesPerServing} cal
+          </span>
+        </div>
+
+        {/* Tags */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          <span className="px-3 py-1 bg-blue-50 text-blue-600 text-xs font-medium rounded-full">
+            {recipe.cuisine}
+          </span>
+          <span className="px-3 py-1 bg-green-50 text-green-600 text-xs font-medium rounded-full">
+            {recipe.difficulty}
+          </span>
+          {recipe.mealType?.map((type, index) => (
+            <span
+              key={index}
+              className="px-3 py-1 bg-purple-50 text-purple-600 text-xs font-medium rounded-full">
+              {type}
+            </span>
+          ))}
+        </div>
+
+        {/* Ingredients Preview */}
+        <div className="mb-5">
+          <h4 className="font-semibold text-gray-700 mb-2">Main Ingredients</h4>
+          <p className="text-sm text-gray-600 line-clamp-2">
+            {recipe.ingredients?.slice(0, 4).join(", ")}...
+          </p>
+        </div>
+
+        {/* View Recipe Button */}
+        <button className="w-full cursor-pointer bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md">
+          View Full Recipe
+        </button>
+      </div>
+    </div>
+  );
+}
