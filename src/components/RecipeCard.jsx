@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaClock,
   FaUtensils,
@@ -12,9 +12,27 @@ import {
 export default function RecipeCard({ recipe }) {
   const [isFavorite, setIsFavorite] = useState(false);
 
+  useEffect(() => {
+    // Check if recipe is in wishlist
+    const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+    setIsFavorite(wishlist.some((item) => item.id === recipe.id));
+  }, [recipe.id]);
+
   if (!recipe) return null;
 
   const toggleFavorite = () => {
+    const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+    
+    if (isFavorite) {
+      // Remove from wishlist
+      const updatedWishlist = wishlist.filter((item) => item.id !== recipe.id);
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+    } else {
+      // Add to wishlist
+      const updatedWishlist = [...wishlist, recipe];
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+    }
+    
     setIsFavorite(!isFavorite);
   };
 
