@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { useState } from "react";
 import {
   FaClock,
@@ -21,10 +22,12 @@ export default function RecipeCard({ recipe }) {
     <div className="rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-xl transition-all duration-300 border border-gray-100">
       {/* Recipe Image with Favorite Heart */}
       <div className="relative h-48 overflow-hidden group">
-        <img
+        <Image
           src={recipe.image}
           alt={recipe.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          fill
+          priority
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <button
           onClick={toggleFavorite}

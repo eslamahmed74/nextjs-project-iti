@@ -7,7 +7,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-gradient-to-r mb-7  from-orange-50 to-amber-50 border-b border-orange-100 shadow-sm">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <div className="container px-4 flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           href="/"
           className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -44,7 +44,7 @@ export default function Navbar() {
             isMenuOpen ? "block" : "hidden"
           } w-full md:block md:w-auto`}
           id="navbar-default">
-          <ul className="font-medium flex flex-col items-center p-4 md:p-0 mt-4 border border-orange-100 rounded-lg bg-orange-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent">
+          <ul className="font-medium flex flex-col md:items-center p-4 md:p-0 mt-4 border border-orange-100 rounded-lg bg-orange-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent">
             <li>
               <Link
                 href="/"
