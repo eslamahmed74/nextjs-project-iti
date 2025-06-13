@@ -1,12 +1,14 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
-    <nav className="bg-gradient-to-r mb-7  from-orange-50 to-amber-50 border-b border-orange-100 shadow-sm">
+    <nav className="bg-gradient-to-r mb-7 from-orange-50 to-amber-50 border-b border-orange-100 shadow-sm">
       <div className="container px-4 flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           href="/"
@@ -49,17 +51,24 @@ export default function Navbar() {
               <Link
                 href="/"
                 onClick={() => setIsMenuOpen(false)}
-                className="block py-2 px-3 text-white bg-gradient-to-r from-orange-500 to-amber-500 rounded md:bg-transparent md:text-orange-700 md:dark:text-orange-500"
-                aria-current="page">
+                className={`block py-2 px-3 rounded ${
+                  pathname === "/"
+                    ? "text-white bg-gradient-to-r from-orange-500 to-amber-500"
+                    : "text-orange-700 hover:bg-orange-100 md:hover:bg-transparent md:border-0 md:hover:text-amber-600"
+                }`}>
                 Home
               </Link>
             </li>
             <li>
               <Link
-                href="/favrecipes"
+                href="/wishlist"
                 onClick={() => setIsMenuOpen(false)}
-                className="block py-2 px-3 text-orange-700 rounded hover:bg-orange-100 md:hover:bg-transparent md:border-0 md:hover:text-amber-600 ">
-                FavRecipes
+                className={`block py-2 px-3 rounded ${
+                  pathname === "/wishlist"
+                    ? "text-white bg-gradient-to-r from-orange-500 to-amber-500"
+                    : "text-orange-700 hover:bg-orange-100 md:hover:bg-transparent md:border-0 md:hover:text-amber-600"
+                }`}>
+                Wishlist
               </Link>
             </li>
           </ul>
