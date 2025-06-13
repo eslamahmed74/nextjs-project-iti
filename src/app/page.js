@@ -1,14 +1,5 @@
-import RecipesList from "@/components/recepiesList";
-import { fetchAllRecipes } from "@/lib/api";
-import Image from "next/image";
+import Recipes from "./recipes/page";
 
-export default async function Home() {
-  const recipes = await fetchAllRecipes();
-
-  return (
-    <main style={{ padding: "20px" }}>
-      <h1>All Recipes</h1>
-      <RecipesList recipes={recipes} />
-    </main>
-  );
+export default function Home() {
+  return <Recipes />;
 }
