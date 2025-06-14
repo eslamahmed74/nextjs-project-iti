@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import RecipeCard from "@/components/RecipeCard";
 import Loading from "../loading";
 
+
 export default function WishlistPage() {
   const [wishlistRecipes, setWishlistRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -52,7 +53,7 @@ export default function WishlistPage() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {wishlistRecipes.map((recipe) => (
               <RecipeCard 
                 key={recipe.id} 
@@ -65,4 +66,4 @@ export default function WishlistPage() {
       </div>
     </main>
   );
-} 
+}
