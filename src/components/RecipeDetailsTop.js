@@ -1,17 +1,19 @@
 "use client";
 import { fetchRecipeById } from "@/lib/api";
 import { useEffect, useState } from "react";
-import { Clock, Users, ChefHat, Star} from "lucide-react";
+import { Clock, Users, ChefHat, Star } from "lucide-react";
 import { useParams } from "next/navigation";
 import InfoCard from "./infoCard";
 import RecommendedRecipes from "./RecommendedRecipes";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import Loading from "@/app/loading";
+import { useWishlist } from "@/lib/WishlistContext";
 
 function RecipeDetailsTop() {
   const [recipe, setRecipe] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const { id } = useParams();
+  const { updateWishlistCount } = useWishlist();
 
   useEffect(() => {
     async function getRecipe() {
@@ -51,6 +53,8 @@ function RecipeDetailsTop() {
     }
 
     setIsFavorite(!isFavorite);
+    // Update wishlist count
+    updateWishlistCount();
   };
 
   const getDifficultyColor = (difficulty) => {
@@ -121,7 +125,7 @@ function RecipeDetailsTop() {
                     <Star
                       key={i}
                       className={`h-5 w-5 ${i < Math.floor(recipe.rating)
-                        ? "text-yellow-400 fill-current"
+                        ? "text-yellow-300 fill-current"
                         : "text-gray-300"
                         }`}
                     />
