@@ -6,7 +6,6 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Loading from "../loading";
 import RecipeCard from "./../../components/RecipeCard.jsx";
 import Search from "./../../components/Search.jsx";
-import Link from "next/link";
 
 export default function Recipes() {
   const [recipes, setRecipes] = useState([]);

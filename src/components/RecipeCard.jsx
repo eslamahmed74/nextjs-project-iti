@@ -118,7 +118,7 @@ export default function RecipeCard({ recipe }) {
 
         {/* View Recipe Button - mt-auto pushes it to bottom if there's space */}
         <Link
-          href={`/recipe/${recipe.id}`}
+          href={`/recipes/${recipe.id}`}
           className="w-full text-center cursor-pointer bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md mt-auto">
           View Full Recipe
         </Link>

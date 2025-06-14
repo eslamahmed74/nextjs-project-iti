@@ -1,13 +1,15 @@
 "use client";
 import { fetchRecipeById } from "@/lib/api";
 import { useEffect, useState } from "react";
-import { Clock, Users, ChefHat, Star, Heart } from "lucide-react";
+import { Clock, Users, ChefHat, Star} from "lucide-react";
 import { useParams } from "next/navigation";
 import InfoCard from "./infoCard";
+import RecommendedRecipes from "./RecommendedRecipes";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 function RecipeDetailsTop() {
-    const [recipe, setRecipe] = useState(null);
-    const [isFavorited, setIsFavorited] = useState(false);
+  const [recipe, setRecipe] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
@@ -20,19 +22,35 @@ function RecipeDetailsTop() {
     if (id) getRecipe();
   }, [id]);
 
-    useEffect(() => {
-        if (!recipe) return;
-        const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
-        setIsFavorite(wishlist.some((item) => item.id === recipe.id));
-    }, [recipe]);
+  useEffect(() => {
+    if (!recipe) return;
+    const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+    setIsFavorite(wishlist.some((item) => item.id === recipe.id));
+  }, [recipe]);
 
-    if (!recipe) {
-        return (
-            <div className="min-h-screen flex items-center justify-center text-gray-500 text-xl">
-                Loading...
-            </div>
-        );
+  if (!recipe) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-500 text-xl">
+        Loading...
+      </div>
+    );
+  }
+
+  const toggleFavorite = () => {
+    const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
+
+    if (isFavorite) {
+      // Remove from wishlist
+      const updatedWishlist = wishlist.filter((item) => item.id !== recipe.id);
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+    } else {
+      // Add to wishlist
+      const updatedWishlist = [...wishlist, recipe];
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
     }
+
+    setIsFavorite(!isFavorite);
+  };
 
   const getDifficultyColor = (difficulty) => {
     switch (difficulty?.toLowerCase()) {
@@ -47,30 +65,33 @@ function RecipeDetailsTop() {
     }
   };
 
-    return (
-        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
-                    <div className="grid lg:grid-cols-2 gap-0">
-                        <div className="relative group">
-                            <img
-                                src={recipe.image}
-                                alt={recipe.name}
-                                className="w-full h-96 lg:h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
-                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                            <div className="absolute top-4 right-4 flex space-x-2">
-                                <button
-                                    onClick={() => setIsFavorited(!isFavorited)}
-                                    className={`p-3 rounded-full backdrop-blur-md transition-all duration-300 ${isFavorited
-                                        ? 'bg-amber-500 text-white shadow-lg scale-110'
-                                        : 'bg-white/80 text-gray-700 hover:bg-white hover:scale-105'
-                                        }`}
-                                >
-                                    <Heart className={`h-5 w-5 ${isFavorited ? 'fill-current' : ''}`} />
-                                </button>
-                            </div>
-                        </div>
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
+          <div className="grid lg:grid-cols-2 gap-0">
+            <div className="relative group">
+              <img
+                src={recipe.image}
+                alt={recipe.name}
+                className="w-full h-96 lg:h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute top-4 right-4 flex space-x-2">
+                <button
+                  onClick={toggleFavorite}
+                  className="absolute cursor-pointer top-3 right-3 p-2 bg-white/80 rounded-full backdrop-blur-sm hover:bg-white transition-colors duration-200"
+                  aria-label={
+                    isFavorite ? "Remove from favorites" : "Add to favorites"
+                  }>
+                  {isFavorite ? (
+                    <FaHeart className="text-red-500 text-lg" />
+                  ) : (
+                    <FaRegHeart className="text-gray-600 text-lg hover:text-red-500" />
+                  )}
+                </button>
+              </div>
+            </div>
 
             <div className="p-8 lg:p-12">
               <div className="flex flex-wrap items-center gap-3 mb-4">
@@ -89,20 +110,19 @@ function RecipeDetailsTop() {
                 </span>
               </div>
 
-                            <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
-                                {recipe.name}
-                            </h1>
+              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                {recipe.name}
+              </h1>
 
               <div className="flex items-center space-x-1 mb-6">
                 <div className="flex items-center">
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className={`h-5 w-5 ${
-                        i < Math.floor(recipe.rating)
-                          ? "text-yellow-400 fill-current"
-                          : "text-gray-300"
-                      }`}
+                      className={`h-5 w-5 ${i < Math.floor(recipe.rating)
+                        ? "text-yellow-400 fill-current"
+                        : "text-gray-300"
+                        }`}
                     />
                   ))}
                 </div>

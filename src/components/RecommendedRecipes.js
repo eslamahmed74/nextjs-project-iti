@@ -73,8 +73,8 @@ export default function RecommendedRecipes({ currentId }) {
                     </span>
                   )}
                 </div>
-                <Link href={`/recipe/${recipe.id}`}>
-                  <button className="bg-orange-500 text-white px-4 py-1 rounded-md text-sm hover:bg-orange-600 transition">
+                <Link href={`/recipes/${recipe.id}`}>
+                  <button className="bg-orange-500 text-white px-4 py-1 rounded-md text-sm hover:bg-orange-600 transition cursor-pointer">
                     View Recipe
                   </button>
                 </Link>
