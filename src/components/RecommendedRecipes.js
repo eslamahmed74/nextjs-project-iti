@@ -47,8 +47,7 @@ export default function RecommendedRecipes({ currentId }) {
           {recipes.slice(startIndex, startIndex + cardsToShow).map((recipe) => (
             <div
               key={recipe.id}
-              className="min-w-[250px] bg-white rounded-xl shadow-md overflow-hidden transition mb-1 hover:scale-105"
-            >
+              className="min-w-[250px] bg-white rounded-xl shadow-md overflow-hidden transition mb-1 hover:scale-105">
               <img
                 src={recipe.image}
                 alt={recipe.name}
@@ -86,14 +85,12 @@ export default function RecommendedRecipes({ currentId }) {
 
         <button
           onClick={handlePrev}
-          className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-orange-200 text-orange-800 p-2 rounded-full shadow hover:bg-orange-300"
-        >
+          className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-orange-200 text-orange-800 p-2 rounded-full shadow hover:bg-orange-300">
           <ChevronLeft className="w-5 h-5" />
         </button>
         <button
           onClick={handleNext}
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-orange-200 text-orange-800 p-2 rounded-full shadow hover:bg-orange-300"
-        >
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-orange-200 text-orange-800 p-2 rounded-full shadow hover:bg-orange-300">
           <ChevronRight className="w-5 h-5" />
         </button>
       </div>
