@@ -1,6 +1,7 @@
 import Footer from "./../components/Footer";
 import "./globals.css";
 import Navbar from "./../components/navbar/Navbar";
+import { WishlistProvider } from "@/lib/WishlistContext";
 
 export const metadata = {
   title: "Create Next App",
@@ -11,10 +12,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Navbar />
-
-        <main>{children}</main>
-        <Footer />
+        <WishlistProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </WishlistProvider>
       </body>
     </html>
   );

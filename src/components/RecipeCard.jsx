@@ -9,9 +9,11 @@ import {
   FaHeart,
   FaRegHeart,
 } from "react-icons/fa";
+import { useWishlist } from "@/lib/WishlistContext";
 
-export default function RecipeCard({ recipe }) {
+export default function RecipeCard({ recipe, onWishlistChange }) {
   const [isFavorite, setIsFavorite] = useState(false);
+  const { updateWishlistCount } = useWishlist();
 
   useEffect(() => {
     // Check if recipe is in wishlist
@@ -35,6 +37,12 @@ export default function RecipeCard({ recipe }) {
     }
 
     setIsFavorite(!isFavorite);
+    // Update wishlist count
+    updateWishlistCount();
+    // Call the callback function if provided
+    if (onWishlistChange) {
+      onWishlistChange();
+    }
   };
 
   return (
