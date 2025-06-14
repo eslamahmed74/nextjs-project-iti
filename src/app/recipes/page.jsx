@@ -1,8 +1,11 @@
+/** @format */
+
 "use client";
 import { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Loading from "../loading";
 import RecipeCard from "./../../components/RecipeCard.jsx";
+import Search from "./../../components/Search.jsx";
 
 export default function Recipes() {
   const [recipes, setRecipes] = useState([]);
@@ -10,6 +13,7 @@ export default function Recipes() {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
   const recipesPerPage = 8; // You can adjust this number
 
   async function fetchRecipes() {
@@ -43,6 +47,14 @@ export default function Recipes() {
     }
   };
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const filteredRecipes = recipes.filter((recipe) =>
+    recipe.name?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   if (error) {
     return (
       <main className="container mx-auto px-4 py-8 text-center">
@@ -68,11 +80,21 @@ export default function Recipes() {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {recipes.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
-        ))}
-      </div>
+      <Search onSearch={handleSearch} />
+
+      {filteredRecipes.length === 0 && searchQuery.trim() !== "" ? (
+        <div className="text-center py-12">
+          <p className="text-gray-600 text-lg">
+            No recipes found matching "{searchQuery}"
+          </p>
+        </div>
+      ) : (
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {filteredRecipes.map((recipe) => (
+            <RecipeCard key={recipe.id} recipe={recipe} />
+          ))}
+        </div>
+      )}
 
       {totalPages > 1 && (
         <div className="flex justify-center flex-wrap container mx-auto px-4 mt-8 gap-2">
