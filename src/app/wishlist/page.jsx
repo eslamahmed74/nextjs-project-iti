@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import RecipeCard from "@/components/RecipeCard";
+import RecipeCard from "@/components/RecipeCard.jsx";
 
 export default function WishlistPage() {
   const [wishlistRecipes, setWishlistRecipes] = useState([]);
