@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Clock, Users, ChefHat, Star, Heart } from 'lucide-react';
 import { useParams } from "next/navigation";
 import InfoCard from "./infoCard";
+import RecommendedRecipes from "./RecommendedRecipes";
 
 function RecipeDetailsTop() {
     const [recipe, setRecipe] = useState(null);
@@ -154,6 +155,7 @@ function RecipeDetailsTop() {
                     </div>
                 </div>
             </div>
+            <RecommendedRecipes currentId={recipe.id} />
         </div>
     );
 }
