@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import InfoCard from "./infoCard";
 import RecommendedRecipes from "./RecommendedRecipes";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import Loading from "@/app/loading";
 
 function RecipeDetailsTop() {
   const [recipe, setRecipe] = useState(null);
@@ -31,7 +32,7 @@ function RecipeDetailsTop() {
   if (!recipe) {
     return (
       <div className="min-h-screen flex items-center justify-center text-gray-500 text-xl">
-        Loading...
+        <Loading></Loading>
       </div>
     );
   }
