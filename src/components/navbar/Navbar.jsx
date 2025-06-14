@@ -2,10 +2,12 @@
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import { useWishlist } from "@/lib/WishlistContext";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { wishlistCount } = useWishlist();
 
   return (
     <nav className="bg-gradient-to-r mb-7 from-orange-50 to-amber-50 border-b border-orange-100 shadow-sm">
@@ -63,12 +65,17 @@ export default function Navbar() {
               <Link
                 href="/wishlist"
                 onClick={() => setIsMenuOpen(false)}
-                className={`block py-2 px-3 rounded ${
+                className={`block py-2 px-3 rounded relative ${
                   pathname === "/wishlist"
                     ? "text-white bg-gradient-to-r from-orange-500 to-amber-500"
                     : "text-orange-700 hover:bg-orange-100 md:hover:bg-transparent md:border-0 md:hover:text-amber-600"
                 }`}>
                 Wishlist
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                    {wishlistCount}
+                  </span>
+                )}
               </Link>
             </li>
           </ul>
