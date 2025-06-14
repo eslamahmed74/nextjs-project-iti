@@ -11,7 +11,7 @@ export default function Navbar() {
   const { wishlistCount } = useWishlist();
 
   return (
-    <nav className="bg-gradient-to-r mb-7 from-orange-50 to-amber-50 border-b border-orange-100 shadow-sm">
+<nav className="bg-gradient-to-r from-orange-200 to-orange-100 border-b border-orange-200 shadow-lg">
       <div className="container px-4 flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           href="/"
