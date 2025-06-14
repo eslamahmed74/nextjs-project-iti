@@ -38,9 +38,9 @@ export default function RecipeCard({ recipe }) {
   };
 
   return (
-    <div className="rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-xl transition-all duration-300 border border-gray-100">
+    <div className="rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full">
       {/* Recipe Image with Favorite Heart */}
-      <div className="relative h-48 overflow-hidden group">
+      <div className="relative h-48 overflow-hidden group flex-shrink-0">
         <Image
           src={recipe.image}
           alt={recipe.name}
@@ -62,8 +62,8 @@ export default function RecipeCard({ recipe }) {
         </button>
       </div>
 
-      {/* Recipe Content */}
-      <div className="p-5">
+      {/* Recipe Content - flex-grow makes this section take remaining space */}
+      <div className="p-5 flex flex-col flex-grow">
         {/* Title and Rating */}
         <div className="flex justify-between items-center mb-3">
           <h3 className="text-xl font-bold text-gray-800 line-clamp-1">
@@ -108,19 +108,19 @@ export default function RecipeCard({ recipe }) {
           ))}
         </div>
 
-        {/* Ingredients Preview */}
-        <div className="mb-5">
+        {/* Ingredients Preview - flex-grow makes this take available space */}
+        <div className="mb-5 flex-grow">
           <h4 className="font-semibold text-gray-700 mb-2">Main Ingredients</h4>
           <p className="text-sm text-gray-600 line-clamp-2">
             {recipe.ingredients?.slice(0, 4).join(", ")}...
           </p>
         </div>
 
-        {/* View Recipe Button */}
-        <Link href={`/recipes/${recipe.id}`}>
-        <button className="w-full cursor-pointer bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md">
+        {/* View Recipe Button - mt-auto pushes it to bottom if there's space */}
+        <Link
+          href={`/recipe/${recipe.id}`}
+          className="w-full text-center cursor-pointer bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md mt-auto">
           View Full Recipe
-        </button>
         </Link>
       </div>
     </div>

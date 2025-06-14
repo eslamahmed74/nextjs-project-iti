@@ -1,8 +1,11 @@
+/** @format */
+
 "use client";
-import RecipeCard from "@/components/RecipeCard";
 import { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Loading from "../loading";
+import RecipeCard from "./../../components/RecipeCard.jsx";
+import Search from "./../../components/Search.jsx";
 import Link from "next/link";
 
 export default function Recipes() {
@@ -11,6 +14,7 @@ export default function Recipes() {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
   const recipesPerPage = 8; // You can adjust this number
 
   async function fetchRecipes() {
@@ -44,6 +48,14 @@ export default function Recipes() {
     }
   };
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const filteredRecipes = recipes.filter((recipe) =>
+    recipe.name?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   if (error) {
     return (
       <main className="container mx-auto px-4 py-8 text-center">
@@ -68,14 +80,13 @@ export default function Recipes() {
   }
 
   return (
-    <main className="container mx-auto px-4 py-8 mt-7">
+    <main className="container mx-auto px-4 py-8">
       <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {recipes.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} />
+          <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
       </div>
 
-      {/* Pagination Controls */}
       {totalPages > 1 && (
         <div className="flex justify-center flex-wrap container mx-auto px-4 mt-8 gap-2">
           <button
@@ -85,18 +96,46 @@ export default function Recipes() {
             <FaChevronLeft className="text-orange-600" />
           </button>
 
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          {/* Show first 4 pages */}
+          {Array.from({ length: Math.min(4, totalPages) }, (_, i) => i + 1).map(
+            (page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`px-4 py-2 border cursor-pointer rounded-md ${
+                  currentPage === page
+                    ? "bg-orange-500 text-white"
+                    : "hover:bg-orange-50"
+                }`}>
+                {page}
+              </button>
+            )
+          )}
+
+          {/* Show ellipsis if there are more pages after 4 */}
+          {totalPages > 4 && <span className="px-4 py-2">...</span>}
+
+          {/* Show current page if it's beyond first 4 pages */}
+          {currentPage > 4 && currentPage < totalPages && (
             <button
-              key={page}
-              onClick={() => handlePageChange(page)}
+              onClick={() => handlePageChange(currentPage)}
+              className="px-4 py-2 border cursor-pointer rounded-md bg-orange-500 text-white">
+              {currentPage}
+            </button>
+          )}
+
+          {/* Show last page if it's not in first 4 */}
+          {totalPages > 4 && (
+            <button
+              onClick={() => handlePageChange(totalPages)}
               className={`px-4 py-2 border cursor-pointer rounded-md ${
-                currentPage === page
+                currentPage === totalPages
                   ? "bg-orange-500 text-white"
                   : "hover:bg-orange-50"
               }`}>
-              {page}
+              {totalPages}
             </button>
-          ))}
+          )}
 
           <button
             onClick={() => handlePageChange(currentPage + 1)}

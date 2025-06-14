@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-
+import { FaUtensils } from "react-icons/fa";
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -12,9 +12,13 @@ export default function Navbar() {
       <div className="container px-4 flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           href="/"
-          className="flex items-center space-x-3 rtl:space-x-reverse">
-          <span className="self-center text-2xl font-semibold whitespace-nowrap text-orange-800">
-            Recipes App
+          className="flex items-center space-x-2 rtl:space-x-reverse group">
+          <div className="p-2 rounded-lg bg-gradient-to-r from-orange-500 to-amber-500 group-hover:from-orange-600 group-hover:to-amber-600 transition-all duration-300">
+            <FaUtensils className="text-white text-xl" />
+          </div>
+
+          <span className="self-center text-2xl font-bold whitespace-nowrap bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent group-hover:from-orange-700 group-hover:to-amber-700 transition-all duration-300">
+            TastyRecipes
           </span>
         </Link>
 

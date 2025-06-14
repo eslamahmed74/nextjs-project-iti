@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import RecipeCard from "@/components/RecipeCard";
+import RecipeCard from "@/components/RecipeCard.jsx";
 
 export default function WishlistPage() {
   const [wishlistRecipes, setWishlistRecipes] = useState([]);
@@ -25,7 +25,7 @@ export default function WishlistPage() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {wishlistRecipes.map((recipe) => (
               <RecipeCard key={recipe.id} recipe={recipe} />
             ))}
@@ -34,4 +34,4 @@ export default function WishlistPage() {
       </div>
     </main>
   );
-} 
+}
