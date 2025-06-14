@@ -68,7 +68,7 @@ function RecipeDetailsTop() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden my-8">
           <div className="grid lg:grid-cols-2 gap-0">
             <div className="relative group">
               <img

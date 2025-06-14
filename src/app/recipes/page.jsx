@@ -80,11 +80,21 @@ export default function Recipes() {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {recipes.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
-        ))}
-      </div>
+      <Search onSearch={handleSearch} />
+
+      {filteredRecipes.length === 0 && searchQuery.trim() !== "" ? (
+        <div className="text-center py-12">
+          <p className="text-gray-600 text-lg">
+            No recipes found matching "{searchQuery}"
+          </p>
+        </div>
+      ) : (
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-10">
+          {filteredRecipes.map((recipe) => (
+            <RecipeCard key={recipe.id} recipe={recipe} />
+          ))}
+        </div>
+      )}
 
       {totalPages > 1 && (
         <div className="flex justify-center flex-wrap container mx-auto px-4 mt-8 gap-2">
