@@ -3,6 +3,7 @@ import RecipeCard from "@/components/RecipeCard";
 import { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Loading from "../loading";
+import Link from "next/link";
 
 export default function Recipes() {
   const [recipes, setRecipes] = useState([]);
@@ -67,10 +68,10 @@ export default function Recipes() {
   }
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <main className="container mx-auto px-4 py-8 mt-7">
       <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {recipes.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
+            <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
       </div>
 

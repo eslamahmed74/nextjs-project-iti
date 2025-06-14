@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import {
   FaClock,
@@ -22,7 +23,7 @@ export default function RecipeCard({ recipe }) {
 
   const toggleFavorite = () => {
     const wishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
-    
+
     if (isFavorite) {
       // Remove from wishlist
       const updatedWishlist = wishlist.filter((item) => item.id !== recipe.id);
@@ -32,7 +33,7 @@ export default function RecipeCard({ recipe }) {
       const updatedWishlist = [...wishlist, recipe];
       localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
     }
-    
+
     setIsFavorite(!isFavorite);
   };
 
@@ -116,9 +117,11 @@ export default function RecipeCard({ recipe }) {
         </div>
 
         {/* View Recipe Button */}
+        <Link href={`/recipes/${recipe.id}`}>
         <button className="w-full cursor-pointer bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md">
           View Full Recipe
         </button>
+        </Link>
       </div>
     </div>
   );
