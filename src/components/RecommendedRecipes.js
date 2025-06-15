@@ -47,7 +47,7 @@ export default function RecommendedRecipes({ currentId }) {
           {recipes.slice(startIndex, startIndex + cardsToShow).map((recipe) => (
             <div
               key={recipe.id}
-              className="min-w-[250px] bg-white rounded-xl shadow-md overflow-hidden transition mb-1 hover:scale-105">
+              className="min-w-[250px] bg-white rounded-xl shadow-md overflow-hidden transition mb-2.5 hover:scale-105">
               <img
                 src={recipe.image}
                 alt={recipe.name}
